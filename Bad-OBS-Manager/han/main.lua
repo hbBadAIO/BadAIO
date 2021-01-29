@@ -14,4 +14,4 @@ local function stream_switcher()
     end
 end
 
-cb.add(cb.tick, on_tick)
+cb.add(cb.tick, stream_switcher)
