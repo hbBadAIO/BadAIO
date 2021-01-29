@@ -10,7 +10,7 @@ local function stream_switcher()
     end
     if (obj.Manager.nexus[TEAM_ALLY].isDead == true) or (obj.Manager.nexus[TEAM_ENEMY].isDead == true) then
         args["data"]["scene"] = "league_outgame"
-        network.send("127.0.0.1:4444/setscene", args)
+        network.send("127.0.0.1:5000/setscene", args)
     end
 end
 
