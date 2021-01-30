@@ -1,16 +1,30 @@
 local menu = module.load(header.id, "menu")
 
 local function stream_switcher()
-    args = {}
-    args["method"] = "POST"
-    args["data"] = {}
-    if game.time == 30 then
-        args["data"]["scene"] = "league_ingame"
-        network.send("127.0.0.1:5000/setscene", args)
+    if (game.time > 30) and (game.time < 30.5) then
+        local result =
+            network.easy_post(
+            function(http_status_code, data, data_len)
+                print(http_status_code, data, data_len)
+            end,
+            "127.0.0.1:5000/setscene",
+            '{"scene":"league_ingame"}'
+        )
+        chat.add("Scene Swapped to in game!", {color = "#ff0084"})
+        chat.print()
     end
-    if (obj.Manager.nexus[TEAM_ALLY].isDead == true) or (obj.Manager.nexus[TEAM_ENEMY].isDead == true) then
-        args["data"]["scene"] = "league_outgame"
-        network.send("127.0.0.1:5000/setscene", args)
+    if (objManager.nexus[TEAM_ALLY].isDead == true) or (objManager.nexus[TEAM_ENEMY].isDead == true) then
+        print("nexus dead")
+        local result =
+            network.easy_post(
+            function(http_status_code, data, data_len)
+                print(http_status_code, data, data_len)
+            end,
+            "127.0.0.1:5000/setscene",
+            '{"scene":"league_outgame"}'
+        )
+        chat.add("Scene Swapped to in game!", {color = "#ff0084"})
+        chat.print()
     end
 end
 
